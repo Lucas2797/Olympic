@@ -15,11 +15,13 @@ sex_choices = [
 Gold = 'Gold'
 Silver = 'Silver'
 Bronze = 'Bronze'
+NA = NA
 
 medal_choices = [
     (Gold, 'Gold'),
     (Silver, 'Silver'),
-    (Bronze, 'Bronze')
+    (Bronze, 'Bronze'),
+    (NA, 'NA')
 ]
 
 Summer = 'Summer'
@@ -42,6 +44,8 @@ class Player (models.Model):
     height = models.FloatField(null=True)
     weight = models.FloatField(null=True)
     team = models.CharField(max_length=120)
+    wrong = models.BooleanField(default=False)
+    
     
     def __str__(self):
         return '%s %s' % (self.player_id, self.name) 
@@ -54,6 +58,9 @@ class Event(models.Model):
     city = models.CharField(max_length=50)
     season = models.CharField(max_length=6, choices=season_choices)
     sport = models.CharField(max_length=50)
+    medal = models.CharField(max_length=50)
+    wrong = models.BooleanField(default=False)
     
     def __str__(self):
         return '%s %s' % (self.games, self.season) 
+    

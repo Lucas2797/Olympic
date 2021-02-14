@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from ...models import Player, Event
+from django.core.exceptions import ObjectDoesNotExist
 
 
 
@@ -13,29 +14,51 @@ class Command(BaseCommand):
         topic = all_champs[0]
         all_champs.remove(all_champs[0])
         for champ in all_champs:  
-            p1 = Player('player_{}'.format(self.listing(topic, 0).lower())==self.listing(champ, 0),
-                        self.listing(topic, 1).lower()==self.listing(champ, 1),
-                        self.listing(topic, 2).lower()==self.listing(champ, 2),
-                        self.listing(topic, 3).lower()==self.listing(champ, 3),
-                        self.listing(topic, 4).lower()==self.listing(champ, 4),
-                        self.listing(topic, 5).lower()==self.listing(champ, 5),
-                        self.listing(topic, 6).lower()==self.listing(champ, 6),
+            p1 = Player(player_id=self.listing(champ, 0),
+                        name=self.listing(champ, 1),
+                        sex=self.listing(champ, 2),
+                        age=self.listing(champ, 3),
+                        height=self.listing(champ, 4),
+                        weight=self.listing(champ, 5),
+                        team=self.listing(champ, 6),
             )
-            if p1 in Player.objects.all():
+            try:
+                obj = Player.objects.get(player_id=p1.player_id, name=p1.name, sex=p1.sex, age=p1.age, height=p1.height, weight=p1.weight, team=p1.team)
                 print(p1)
                 print('ja tem')
-            else:
+                
+            except ValueError as e:
+                p1.wrong = True
+                p1.age = 0
+                p1.sex = 'M'
+                p1.height = 0
+                p1.weight = 0
                 p1.save()
-                e1 = Event(
-                        topic[7].lower()==champ[7],
-                        topic[8].lower()==champ[8],
-                        topic[9].lower()==champ[9],
-                        topic[10].lower()==champ[10],
-                        topic[11].lower()==champ[11],
-                        )
-                e1.winner = p1
-                e1.save()
-                print('ok')
+                print('ERRADO')
+                print(e.__dir__())
+                print(e.args)
+                print(e.__cause__)
+                
+                
+            except ObjectDoesNotExist:
+                p1.save()
+                try:
+                    e1 = Event(
+                            noc=self.listing(champ, 7),
+                            games=self.listing(champ, 8),
+                            year=self.listing(champ, 9),
+                            season=self.listing(champ, 10),
+                            city=self.listing(champ, 11),
+                            sport=self.listing(champ, 12),
+                            )
+                    e1.winner = p1
+                    e1.save()
+                    print('ok')
+                except ValueError:
+                    e1.winner = p1
+                    e1.year = 0
+                    e1.wrong = True
+                    e1.save()
 
 
 
