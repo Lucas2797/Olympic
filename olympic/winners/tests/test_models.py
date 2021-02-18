@@ -4,7 +4,7 @@ import sys
 sys.path.append('/home/kali/.virtualenvs/celero/olympic/winners')
 
 print(sys.path)
-from models import Player
+from winners.models import Player
 
 
 

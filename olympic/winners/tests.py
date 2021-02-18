@@ -4,7 +4,7 @@ import os
 from bs4 import BeautifulSoup
 from rest_framework.reverse import reverse
 import sys
-from models import Player
+from .models import Player
 
 print(sys.path)
 
