@@ -29,7 +29,7 @@ def player_list(request):
     
     if request.method == 'GET':
         query = Player.objects.all()
-        seri = PlayerSerializer(query, many=True)
+        seri = PlayerSerializer(query, many=True, context = {'request':request})
         return Response(seri.data)
     
     elif request.method == 'POST':
@@ -59,7 +59,7 @@ def event_list(request):
             return Response(seri.errors, status=400)
 
 @csrf_exempt
-@api_view(['GET', 'POST', 'PUT'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def player_detail(request, id):
     try:
         obj = Player.objects.get(id=id)

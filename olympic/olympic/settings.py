@@ -75,7 +75,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'olympic.wsgi.application'
 
-
+APPEND_SLASH = True
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
