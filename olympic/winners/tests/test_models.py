@@ -12,7 +12,7 @@ from winners.models import Player
 class TestModels():
     def test_create(self, client):
         data={
-            'player_id': 799117,
+            'player_id': 123452,
             'name':'lucas45',
             'sex':'M',
             'age':21,

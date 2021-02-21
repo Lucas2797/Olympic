@@ -23,16 +23,23 @@ class Command(BaseCommand):
                         team=self.listing(champ, 6),
             )
             try:
-                obj = Player.objects.get(player_id=p1.player_id, name=p1.name, sex=p1.sex, age=p1.age, height=p1.height, weight=p1.weight, team=p1.team)
+                obj = Player.objects.get(
+                    player_id=p1.player_id,
+                    name=p1.name,
+                    sex=p1.sex,
+                    age=p1.age,
+                    height=p1.height,
+                    weight=p1.weight,
+                    team=p1.team)
                 print(p1)
                 print('ja tem')
                 
             except ValueError as e:
-                p1.wrong = True
                 p1.age = 0
                 p1.sex = 'M'
                 p1.height = 0
                 p1.weight = 0
+                p1.wrong = True
                 p1.save()
                 print('ERRADO')
                 print(e.__dir__())

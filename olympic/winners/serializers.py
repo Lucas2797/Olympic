@@ -1,19 +1,18 @@
 from .models import *
 from rest_framework import serializers
-from .models import Player
-
+from .models import Player, Event
 
 
 
 class PlayerSerializer(serializers.HyperlinkedModelSerializer):
-    winner = serializers.HyperlinkedRelatedField(many=True, view_name='event-detail', queryset=Event.objects.all())
-    link = serializers.HyperlinkedIdentityField(view_name='player_detail', format='api')
+    events = serializers.HyperlinkedRelatedField(many=True, view_name='event-detail', queryset=Event.objects.all())
+    url = serializers.HyperlinkedIdentityField(view_name='player-detail')
     class Meta:
         model = Player
-        fields = ['id',  'player_id', 'name', 'winner', 'link', 'sex', 'age', 'height', 'weight', 'team']
-        
+        fields = ['id','events', 'url',  'player_id', 'name', 'sex', 'age', 'height', 'weight', 'team']
         
 class EventSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='event-detail')
     class Meta:
         model = Event
-        fields = ['winner', 'noc', 'games', 'year', 'city', 'season', 'sport']
+        fields = ['winner','id','url', 'noc', 'games', 'year', 'city', 'season', 'sport']
