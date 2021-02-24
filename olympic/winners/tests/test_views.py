@@ -1,10 +1,10 @@
 from rest_framework.reverse import reverse
-
+import requests
 
 
 class TestView():
     
-    def test_formats():
+    def test_formats(self):
         r1 = requests.get('http://127.0.0.1/winners/player_list/?format=json', data)
         assert r1.headers['content_type'] == 'application/json'
         r1 = requests.get('http://127.0.0.1/winners/player_list/?format=api', data)
