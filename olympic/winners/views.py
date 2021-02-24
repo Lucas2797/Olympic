@@ -14,12 +14,6 @@ from rest_framework import status
 from django.db.models import Q
 
 
-class HomeView(APIView):
-    template_name = 'home.amp.html'
-    
-        
-        
-        
 @api_view(['GET'])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, BrowsableAPIRenderer])
 def home_view (request, format=None):
@@ -32,11 +26,6 @@ def home_view (request, format=None):
         }
         return Response(context, template_name='home.amp.html')
 
-    
-def check_input(one):
-    if one != '':
-        return True
-    
 
 
 @api_view(['GET', 'POST'])
@@ -75,17 +64,17 @@ def player_list(request, order='player_id' , format=None):
             filtro_basico.add(Q(team=team_query), Q.AND)
     
         query = Player.objects.filter(filtro_basico).order_by(order)
-        seri = PlayerSerializer(query, many=True, context = {'request':request})
+        seri = PlayerSerializer(query, many=True, context={'request': request})
         if request.accepted_renderer.format == 'html':
             context = {
                 'query': query,
             }
             return render(request, 'winner_list.amp.html', context)
         else:
-            return Response(seri.data, status=status.HTTP_200_OK)
+            return Response(seri.data, status=status.HTTP_200_OK, template_name='winner_list.amp.html')
     
     elif request.method == 'POST':
-        seri = PlayerSerializer(data=request.data)
+        seri = PlayerSerializer(data=request.data, context={'request': request})
         if seri.is_valid():
             seri.save()
             return Response(seri.data, status=status.HTTP_201_CREATED)
@@ -136,7 +125,7 @@ def event_list(request, order='winner',format=None):
             return Response(seri.data, status=status.HTTP_200_OK)
     
     elif request.method == 'POST':
-        seri = PlayerSerializer(data=request.data)
+        seri = PlayerSerializer(data=request.data, context={'request': request})
         if seri.is_valid():
             seri.save()
             return Response(seri.data, status=status.HTTP_201_CREATED)

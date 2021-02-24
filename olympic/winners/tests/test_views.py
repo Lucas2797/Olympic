@@ -1,21 +1,33 @@
 from rest_framework.reverse import reverse
+import requests
 
 
 
 class TestView():
     
-    def test_formats():
-        r1 = requests.get('http://127.0.0.1/winners/player_list/?format=json', data)
-        assert r1.headers['content_type'] == 'application/json'
-        r1 = requests.get('http://127.0.0.1/winners/player_list/?format=api', data)
-        assert r1.headers['content_type'] == 'text/html'
-        r1 = requests.get('http://127.0.0.1/winners/player_list/', data)
-        assert r1.headers['content_type'] == 'text/html'
+    data={
+        'player_id': 123452,
+        'name':'lucas45',
+        'sex':'M',
+        'age':21,
+        'height':1,
+        'weight':1,
+        'team':'google'
+    }
+
+
+    def test_formats(self):
+        r1 = requests.get('http://127.0.0.1/winners/player_list/?format=json', self.data)
+        assert r1.headers['Content-Type'] == 'application/json'
+        r1 = requests.get('http://127.0.0.1/winners/player_list/?format=api', self.data)
+        assert r1.headers['Content-Type'] == 'text/html; charset=utf-8'
+        r1 = requests.get('http://127.0.0.1/winners/player_list/', self.data)
+        assert r1.headers['Content-Type'] == 'text/html; charset=utf-8'
         
         
         
 
-        
+
         
         # r3 = requests.delete('http://127.0.0.1/winners/player_detail/{}/'.format(json.loads(r1._content)['id']))
         # assert r3.status_code == 204
