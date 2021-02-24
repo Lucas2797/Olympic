@@ -34,3 +34,6 @@ class TestModels():
         assert r4.status_code == 201
         r5 = requests.delete('http://127.0.0.1/winners/player_detail/{}/'.format(json.loads(r4._content)['id']))
         assert r5.status_code == 204
+
+
+

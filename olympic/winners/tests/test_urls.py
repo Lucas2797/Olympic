@@ -26,3 +26,5 @@ class TestUrls():
         assert resolve(path).view_name == 'event-detail'
         assert resolve(path)._func_path == 'winners.views.event_detail'
         assert resolve(path).route == 'winners/event_detail/<int:pk>/'
+
+
