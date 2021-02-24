@@ -5,15 +5,33 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class Command(BaseCommand):
-    
+
     def listing(self, champ, n):
-        return champ.split(',')[n].replace('"', '').replace('NA', '0')
-    
+        medal_choices = ['Gold', 'Silver', 'Bronze', 'NA', 0]
+        lista = champ.split(',')
+        if len(lista) >= 16:
+            lista.remove(lista[14])
+        one = lista[n].replace('"', '').replace('NA', '0')
+        #return champ[1:].split(',')[n].replace('"', '')
+        return one
+
+    def medal_func(self, champ, one):
+        medal_choices =['Bronze', 'Gold', 'Silver', 'NA']
+        if one in medal_choices:
+            return self.listing(champ, 14)
+        else:
+            try:
+                return self.listing(champ, 15)
+            except IndexError:
+                return self.listing(champ, 14)
+
+
     def handle(self, *args, **kwargs):
         all_champs = [row for row in open('athlete_events.csv', 'r')]
         topic = all_champs[0]
         all_champs.remove(all_champs[0])
         for champ in all_champs:  
+
             p1 = Player(player_id=self.listing(champ, 0),
                         name=self.listing(champ, 1),
                         sex=self.listing(champ, 2),
@@ -31,8 +49,7 @@ class Command(BaseCommand):
                     height=p1.height,
                     weight=p1.weight,
                     team=p1.team)
-                print(p1)
-                print('ja tem')
+
                 
             except ValueError as e:
                 p1.age = 0
@@ -41,10 +58,7 @@ class Command(BaseCommand):
                 p1.weight = 0
                 p1.wrong = True
                 p1.save()
-                print('ERRADO')
-                print(e.__dir__())
-                print(e.args)
-                print(e.__cause__)
+
                 
                 
             except ObjectDoesNotExist:
@@ -57,7 +71,8 @@ class Command(BaseCommand):
                             season=self.listing(champ, 10),
                             city=self.listing(champ, 11),
                             sport=self.listing(champ, 12),
-                            medal=self.listing(champ,13),
+                            modality=self.listing(champ,13),
+                            medal=self.listing(champ,14),
                             )
                     e1.winner = p1
                     e1.save()
@@ -66,6 +81,7 @@ class Command(BaseCommand):
                     e1.winner = p1
                     e1.year = 0
                     e1.wrong = True
+                    e1.modalidality ='wrong'
                     e1.save()
 
 

@@ -38,16 +38,8 @@ class Player (models.Model):
 
     
     def __str__(self):
-        return '%s %s' % (self.player_id, self.name)
+        return '{} - {}'.format(self.player_id, self.name)
     
-    
-    def save(self, *args, **kwargs):
-        try:
-            o1 = Player.objects.get(player_id=self.player_id, age=self.age, wrong=self.wrong, height=self.height, weight=self.weight, team=self.team, name=self.name)
-            raise ValidationError('Player already in')
-        except ObjectDoesNotExist:
-            super().save(*args, **kwargs)
-        
     
 class Event(models.Model):
     winner = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='events')
@@ -57,6 +49,7 @@ class Event(models.Model):
     city = models.CharField(max_length=50)
     season = models.CharField(max_length=6, choices=season_choices)
     sport = models.CharField(max_length=50)
+    modality = models.CharField(max_length=100)
     medal = models.CharField(max_length=50)
     wrong = models.BooleanField(default=False)
 

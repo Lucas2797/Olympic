@@ -15,4 +15,4 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='event-detail')
     class Meta:
         model = Event
-        fields = ['winner','id','url', 'noc', 'games', 'year', 'city', 'season', 'sport']
+        fields = ['winner','id','url', 'noc', 'games', 'year', 'city', 'season', 'sport', 'modality', 'medal']

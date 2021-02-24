@@ -1,7 +1,71 @@
 {% extends 'base.amp.html' %}
+{% block title %}LIST{% endblock title %}
+
 
 {% block content %}
+<form method="GET" action="." target="_top">
+  <label for="id_query">Winner
+    <input type="number" name="winner_query">
+  </label>
+  <label for="noc_query">NOC
+    <input type="text" name="noc_query">
+  </label>
+  <br>
+  <label for="city_query">City
+    <input type="text" name="city_query">
+  </label>
+  <br>
+  <label for="season_query">Idade
+    <input type="number" name="season_query" placeholder="Idade">
+  </label>
+  <label for="sport_query">Sport
+    <input type="number" name="sport_query" placeholder="in centimeters">
+  </label>
+  <label for="modality_query">Modality
+    <input type="number" name="modality_query" placeholder="in grams">
+  </label>
+  <label for="medal_query">Medal
+    <input type="text" name="medal_query">
+  </label>
+  <label for="wrong_query">Wrong
+    <input type="checkbox" name="wrong_query">
+  </label>
 
+  <input style="margin-left: 44%;" type="submit">
+</form>
+
+<table style="width:100%">
+  <tr>
+    <th><a class="order" href="{% url 'event_list' order='id' %}">id</a></th>
+    <th><a class="order" href="{% url 'event_list' order='winner' %}">winner</a></th>
+    <th><a class="order" href="{% url 'event_list' order='noc' %}">noc</a></th>
+    <th><a class="order" href="{% url 'event_list' order='games' %}">games</a></th>
+    <th><a class="order" href="{% url 'event_list' order='year' %}">year</a></th>
+    <th><a class="order" href="{% url 'event_list' order='city' %}">city</a></th>
+    <th><a class="order" href="{% url 'event_list' order='season' %}">season</a></th>
+    <th><a class="order" href="{% url 'event_list' order='sport' %}">sport</a></th>
+    <th><a class="order" href="{% url 'event_list' order='modality' %}">modality</a></th>
+    <th><a class="order" href="{% url 'event_list' order='medal' %}">medal</a></th>
+    <th><a class="order" href="{% url 'event_list' order='wrong' %}">wrong</a></th>
+  </tr>
+  {% for w in query %}
+    <tr>
+        <td>{{w.id}}</td>
+        <td><a href="{% url 'event-detail' pk=w.pk %}">{{w.winner}}</a></td>
+        <td>{{w.noc}}</td>
+        <td>{{w.games}}</td>
+        <td>{{w.year}}</td>
+        <td>{{w.city}}</td>
+        <td>{{w.season}}</td>
+        <td>{{w.sport}}</td>
+        <td>{{w.modality}}</td>
+        <td>{{w.medal}}</td>
+        <td>{{w.wrong}}</td>
+    </tr>
+
+
+  {% endfor %}
+</table>
 
 
 {% endblock content %}

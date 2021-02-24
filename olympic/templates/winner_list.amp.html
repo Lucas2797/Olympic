@@ -4,13 +4,64 @@
 
 {% block content %}
 
-<h1>OK</h1>
+  <form method="GET" action="." target="_top">
+    <label for="id_query">Player_id
+      <input type="number" name="id_query">
+    </label>
+    <label for="name_query">Nome
+      <input type="text" name="name_query">
+    </label>
+    <br>
+    <label for="sex_query">Sexo
+      <input type="checkbox" name="sex_query" value="F">F
+      <input type="checkbox" name="sex_query" value="M">M
+    </label>
+    <br>
+    <label for="age_query">Idade
+      <input type="number" name="age_query" placeholder="Idade">
+    </label>
+    <label for="height_query">Altura
+      <input type="number" name="height_query" placeholder="in centimeters">
+    </label>
+    <label for="weight_query">Peso
+      <input type="number" name="weight_query" placeholder="in grams">
+    </label>
+    <label for="team_query">Equipe
+      <input type="text" name="team_query">
+    </label>
+    <label for="wrong_query">Wrong
+      <input type="checkbox" name="wrong_query">
+    </label>
+
+    <input style="margin-left: 44%;" type="submit">
+  </form>
+
+<table style="width:100%">
+  <tr>
+    <th><a class="order" href="{% url 'player_list' order='player_id' %}">player_id</a></th>
+    <th><a class="order" href="{% url 'player_list' order='name' %}">name</a></th>
+    <th><a class="order" href="{% url 'player_list' order='sex' %}">sex</a></th>
+    <th><a class="order" href="{% url 'player_list' order='age' %}">age</a></th>
+    <th><a class="order" href="{% url 'player_list' order='height' %}">height</a></th>
+    <th><a class="order" href="{% url 'player_list' order='weight' %}">weight</a></th>
+    <th><a class="order" href="{% url 'player_list' order='team' %}">team</a></th>
+    <th><a class="order" href="{% url 'player_list' order='wrong' %}" value=False>wrong</a></th>
+  </tr>
+  {% for w in query %}
+    <tr>
+        <td>{{w.player_id}}</td>
+        <td><a href="{% url 'player-detail' pk=w.pk%}">{{w.name}}</a></td>
+        <td>{{w.sex}}</td>
+        <td>{{w.age}}</td>
+        <td>{{w.height}}</td>
+        <td>{{w.weight}}</td>
+        <td>{{w.team}}</td>
+        <td>{{w.wrong}}</td>
+    </tr>
 
 
-<table>
-
+  {% endfor %}
 </table>
-
 
 
 {% endblock content %}
