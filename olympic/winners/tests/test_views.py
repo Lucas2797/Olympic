@@ -1,9 +1,14 @@
 from rest_framework.reverse import reverse
 import requests
+<<<<<<< HEAD
+=======
+
+>>>>>>> b8c23929424afd1ce2aee6a9b9ebc05278efc855
 
 
 class TestView():
     
+<<<<<<< HEAD
     def test_formats(self):
         r1 = requests.get('http://127.0.0.1/winners/player_list/?format=json', data)
         assert r1.headers['content_type'] == 'application/json'
@@ -11,11 +16,31 @@ class TestView():
         assert r1.headers['content_type'] == 'text/html'
         r1 = requests.get('http://127.0.0.1/winners/player_list/', data)
         assert r1.headers['content_type'] == 'text/html'
+=======
+    data={
+        'player_id': 123452,
+        'name':'lucas45',
+        'sex':'M',
+        'age':21,
+        'height':1,
+        'weight':1,
+        'team':'google'
+    }
+
+
+    def test_formats(self):
+        r1 = requests.get('http://127.0.0.1/winners/player_list/?format=json', self.data)
+        assert r1.headers['Content-Type'] == 'application/json'
+        r1 = requests.get('http://127.0.0.1/winners/player_list/?format=api', self.data)
+        assert r1.headers['Content-Type'] == 'text/html; charset=utf-8'
+        r1 = requests.get('http://127.0.0.1/winners/player_list/', self.data)
+        assert r1.headers['Content-Type'] == 'text/html; charset=utf-8'
+>>>>>>> b8c23929424afd1ce2aee6a9b9ebc05278efc855
         
         
         
 
-        
+
         
         # r3 = requests.delete('http://127.0.0.1/winners/player_detail/{}/'.format(json.loads(r1._content)['id']))
         # assert r3.status_code == 204

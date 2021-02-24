@@ -10,10 +10,10 @@ class TestUrls():
         assert resolve(path).route == 'winners/player_list/'
 
     def test_player_detail(self):
-        path = reverse('player_detail', kwargs={'id': 1})
-        assert resolve(path).view_name == 'player_detail'
+        path = reverse('player-detail', kwargs={'pk': 1})
+        assert resolve(path).view_name == 'player-detail'
         assert resolve(path)._func_path == 'winners.views.player_detail'
-        assert resolve(path).route == 'winners/player_detail/<int:id>/'
+        assert resolve(path).route == 'winners/player_detail/<int:pk>/'
 
     def test_event_list(self):
         path = reverse('event_list')
@@ -22,7 +22,7 @@ class TestUrls():
         assert resolve(path).route == 'winners/event_list/'
 
     def test_event_detail(self):
-        path = reverse('event_detail', kwargs={'id': 1})
-        assert resolve(path).view_name == 'event_detail'
+        path = reverse('event-detail', kwargs={'pk': 1})
+        assert resolve(path).view_name == 'event-detail'
         assert resolve(path)._func_path == 'winners.views.event_detail'
-        assert resolve(path).route == 'winners/event_detail/<int:id>/'
+        assert resolve(path).route == 'winners/event_detail/<int:pk>/'
