@@ -183,10 +183,6 @@ def event_detail(request, pk):
         
 
 
-
-
-
-
 class PlayerList(APIView):
     
     def get(self, request, format=None):
@@ -262,3 +258,6 @@ class EventDetail(APIView):
             seri.save()
             return Response(seri.data)
         return Response(seri.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+        

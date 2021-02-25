@@ -39,8 +39,12 @@ class Player (models.Model):
     
     def __str__(self):
         return '{} - {}'.format(self.player_id, self.name)
-    
-    
+
+    def clean(self):
+        p1 = Player.objects.filter(player_id=self.player_id, name=self.name, age=self.age, team=self.team, wrong=self.wrong)
+        if p1.exists():
+            raise ValidationError('Player already in')
+
 class Event(models.Model):
     winner = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='events')
     noc = models.CharField(max_length=3)
