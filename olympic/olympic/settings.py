@@ -28,7 +28,7 @@ SECRET_KEY = '7u9wa=o&=ee(!bb+zvnk_!k)x6514g)1!jaz)mucg&5-&r_*%9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['72ff0a9861a3.ngrok.io', '127.0.0.1']
+ALLOWED_HOSTS = ['olympicc.herokuapp.com', '127.0.0.1']
 
 
 # Application definition

@@ -17,12 +17,12 @@ class TestView():
 
 
     def test_formats(self):
-        r1 = requests.get('http://127.0.0.1/winners/player_list/?format=json', self.data)
+        r1 = requests.get('https://olympicc.herokuapp.com/winners/player_list/?format=json', self.data)
         assert r1.status_code == 200
         assert r1.headers['Content-Type'] == 'application/json'
-        r1 = requests.get('http://127.0.0.1/winners/player_list/?format=api', self.data)
+        r1 = requests.get('https://olympicc.herokuapp.com/winners/player_list/?format=api', self.data)
         assert r1.headers['Content-Type'] == 'text/html; charset=utf-8'
-        r1 = requests.get('http://127.0.0.1/winners/player_list/', self.data)
+        r1 = requests.get('https://olympicc.herokuapp.com/winners/player_list/', self.data)
         assert r1.headers['Content-Type'] == 'text/html; charset=utf-8'
         
     

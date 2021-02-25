@@ -24,15 +24,15 @@ class TestModels():
             'team':'google',
             'wrong': False,
         }
-        r1 = requests.post('http://127.0.0.1/winners/player_list.json/', data)
+        r1 = requests.post('https://olympicc.herokuapp.com/winners/player_list.json/', data)
         assert r1.status_code == 201
-        r2 = requests.post('http://127.0.0.1/winners/player_list/', data)
+        r2 = requests.post('https://olympicc.herokuapp.com/winners/player_list/', data)
         assert r2.status_code == 500
-        r3 = requests.delete('http://127.0.0.1/winners/player_detail/{}/'.format(json.loads(r1._content)['id']))
+        r3 = requests.delete('https://olympicc.herokuapp.com/winners/player_detail/{}/'.format(json.loads(r1._content)['id']))
         assert r3.status_code == 204
-        r4 = requests.post('http://127.0.0.1/winners/player_list.json/', data)
+        r4 = requests.post('https://olympicc.herokuapp.com/winners/player_list.json', data)
         assert r4.status_code == 201
-        r5 = requests.delete('http://127.0.0.1/winners/player_detail/{}/'.format(json.loads(r4._content)['id']))
+        r5 = requests.delete('https://olympicc.herokuapp.com/winners/player_detail/{}/'.format(json.loads(r4._content)['id']))
         assert r5.status_code == 204
 
 
